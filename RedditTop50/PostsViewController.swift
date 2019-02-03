@@ -10,7 +10,7 @@ import UIKit
 
 struct Post {
     let name: String
-//    let time: String
+    let time: Double
     let title: String
     let mediaURL: String
     let comments: Int
@@ -30,7 +30,7 @@ class PostsViewController: UIViewController {
     }
     
     func fetchRedditPosts(){
-        guard let redditUrl = URL(string: "https://www.reddit.com/top/.json?limit=3") else { return }
+        guard let redditUrl = URL(string: "https://www.reddit.com/top/.json?limit=50") else { return }
         
         let request = URLRequest(url: redditUrl, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 20)
         let session = URLSession.shared
@@ -42,14 +42,14 @@ class PostsViewController: UIViewController {
             } else if data != nil {
                 do {
                     let results = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! [String: Any]
-                    if let elementDict = results["data"] as? [String: Any] {
-                        if let elements = elementDict["children"] as? [Any] {
-                            for one in elements {
-                                if let element = one as? [String:Any] {
+                    if let postsDictionary = results["data"] as? [String: Any] {
+                        if let elements = postsDictionary["children"] as? [Any] {
+                            for onePost in elements {
+                                if let element = onePost as? [String:Any] {
                                     if let postDict = element["data"] as? [String:Any] {
                                         
-                                        guard let name = postDict["author_fullname"] as? String,
-//                                              let time = postDict["time"] as? String,
+                                        guard let name = postDict["author"] as? String,
+                                              let time = postDict["created_utc"] as? Double,
                                               let title = postDict["title"] as? String,
                                               let mediaURL = postDict["url"] as? String,
                                               let comments = postDict["num_comments"] as? Int else {
@@ -57,7 +57,7 @@ class PostsViewController: UIViewController {
                                                 break
                                                 
                                         }
-                                        self.postsArray.append(Post(name: name, /*time: time,*/ title: title, mediaURL: mediaURL, comments: comments))
+                                        self.postsArray.append(Post(name: name, time: time, title: title, mediaURL: mediaURL, comments: comments))
                                     }
                                 }
                             }
@@ -79,11 +79,11 @@ class PostsViewController: UIViewController {
 
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destination = segue.destination as? WebVC, let postIndex = postsTableView.indexPathForSelectedRow?.row {
-//            destination.post = postsArray[postIndex]
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? MediaViewController, let postIndex = postsTableView.indexPathForSelectedRow?.row {
+            destination.post = postsArray[postIndex]
+        }
+    }
 }
 
 extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -103,9 +103,15 @@ extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
         
         let post = postsArray[indexPath.row]
         
-        cell.name.text = post.name
+        if let url = URL(string: post.mediaURL) {
+            cell.postMedia.load(URLRequest(url: url))
+        }
+        
+        let startDate = Date(timeIntervalSince1970: post.time)
+        
+        cell.postTime.text = startDate.postTimeCalculation()
+        cell.name.text = (post.name + "   •   ")
         cell.postTitle.text = post.title
-        cell.postImage.image = UIImage(named: "RedditIcon")
         cell.postComments.text = post.comments.description
         
         return cell
@@ -113,5 +119,33 @@ extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+//Hours Ago Calculation
+extension Date {
+    func postTimeCalculation() -> String {
+        
+        let calendar = Calendar.current
+        let minuteAgo = calendar.date(byAdding: .minute, value: -1, to: Date())!
+        let hourAgo = calendar.date(byAdding: .hour, value: -1, to: Date())!
+        let dayAgo = calendar.date(byAdding: .day, value: -1, to: Date())!
+        let weekAgo = calendar.date(byAdding: .day, value: -7, to: Date())!
+        
+        if minuteAgo < self {
+            let diff = Calendar.current.dateComponents([.second], from: self, to: Date()).second ?? 0
+            return "\(diff) sec ago"
+        } else if hourAgo < self {
+            let diff = Calendar.current.dateComponents([.minute], from: self, to: Date()).minute ?? 0
+            return "\(diff) min ago"
+        } else if dayAgo < self {
+            let diff = Calendar.current.dateComponents([.hour], from: self, to: Date()).hour ?? 0
+            return "\(diff) hrs ago"
+        } else if weekAgo < self {
+            let diff = Calendar.current.dateComponents([.day], from: self, to: Date()).day ?? 0
+            return "\(diff) days ago"
+        }
+        let diff = Calendar.current.dateComponents([.weekOfYear], from: self, to: Date()).weekOfYear ?? 0
+        return "\(diff) weeks ago"
     }
 }

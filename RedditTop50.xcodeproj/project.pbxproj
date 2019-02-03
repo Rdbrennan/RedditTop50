@@ -14,6 +14,7 @@
 		6854FE96220357AF006E8ADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6854FE94220357AF006E8ADE /* LaunchScreen.storyboard */; };
 		6854FE9E22036DCA006E8ADE /* RedditClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6854FE9D22036DCA006E8ADE /* RedditClient.swift */; };
 		6854FEA12206113C006E8ADE /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6854FEA02206113C006E8ADE /* PostTableViewCell.swift */; };
+		6854FEA322063053006E8ADE /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6854FEA222063053006E8ADE /* MediaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		6854FE97220357AF006E8ADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6854FE9D22036DCA006E8ADE /* RedditClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditClient.swift; sourceTree = "<group>"; };
 		6854FEA02206113C006E8ADE /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		6854FEA222063053006E8ADE /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				6854FE8D220357AE006E8ADE /* PostsViewController.swift */,
 				6854FE8F220357AE006E8ADE /* Main.storyboard */,
 				6854FEA02206113C006E8ADE /* PostTableViewCell.swift */,
+				6854FEA222063053006E8ADE /* MediaViewController.swift */,
 				6854FE92220357AF006E8ADE /* Assets.xcassets */,
 				6854FE94220357AF006E8ADE /* LaunchScreen.storyboard */,
 				6854FE97220357AF006E8ADE /* Info.plist */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6854FE8E220357AE006E8ADE /* PostsViewController.swift in Sources */,
+				6854FEA322063053006E8ADE /* MediaViewController.swift in Sources */,
 				6854FE8C220357AE006E8ADE /* AppDelegate.swift in Sources */,
 				6854FE9E22036DCA006E8ADE /* RedditClient.swift in Sources */,
 				6854FEA12206113C006E8ADE /* PostTableViewCell.swift in Sources */,

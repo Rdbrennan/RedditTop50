@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class PostTableViewCell: UITableViewCell {
     //MARK: Variables
@@ -19,8 +20,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet var name: UILabel!
     @IBOutlet var postTime: UILabel!
     @IBOutlet var postTitle: UILabel!
-    @IBOutlet var postImage: UIImageView!
     @IBOutlet var postComments: UILabel!
+    @IBOutlet var postMedia: WKWebView!
     
     
     
