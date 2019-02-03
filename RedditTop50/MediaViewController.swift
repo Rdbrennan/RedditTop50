@@ -16,13 +16,18 @@ class MediaViewController: UIViewController {
     
     var post: Post?
     @IBOutlet var mediaWebView: WKWebView!
+    let defaultUrl = URL(string: "https://i.redd.it/4jeme1xu9lq01.png")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let post = post, let url = URL(string: post.mediaURL) {
             mediaWebView.load(URLRequest(url: url))
+            print(url)
             self.title = post.title
+        }
+        else{
+            mediaWebView.load(URLRequest(url: defaultUrl!))
         }
     }
     

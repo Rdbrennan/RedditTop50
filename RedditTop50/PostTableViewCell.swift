@@ -21,7 +21,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet var postTime: UILabel!
     @IBOutlet var postTitle: UILabel!
     @IBOutlet var postComments: UILabel!
-    @IBOutlet var postMedia: WKWebView!
+    @IBOutlet var referenceImage: UIImageView!
     
     
     

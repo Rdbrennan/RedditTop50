@@ -47,7 +47,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential full length title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="50" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiK-MS-Bix">
-                                                    <rect key="frame" x="16" y="67" width="343" height="21.5"/>
+                                                    <rect key="frame" x="16" y="67" width="343" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="343" id="N6G-P6-KFL"/>
                                                     </constraints>
@@ -90,17 +90,15 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjz-ds-E6m">
-                                                    <rect key="frame" x="0.0" y="133" width="375" height="228"/>
-                                                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <wkWebViewConfiguration key="configuration">
-                                                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                                        <wkPreferences key="preferences"/>
-                                                    </wkWebViewConfiguration>
-                                                </wkWebView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="lLl-E8-OBe">
+                                                    <rect key="frame" x="0.0" y="117" width="375" height="263"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="263" id="lgJ-ki-xrZ"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="sjz-ds-E6m" firstAttribute="width" secondItem="h8E-2J-ucp" secondAttribute="width" id="1X5-bh-Kzi"/>
+                                                <constraint firstItem="U7O-Cf-W37" firstAttribute="top" secondItem="lLl-E8-OBe" secondAttribute="bottom" constant="29" id="4YG-SC-lMC"/>
                                                 <constraint firstItem="0J4-Oq-QII" firstAttribute="centerX" secondItem="h8E-2J-ucp" secondAttribute="centerX" constant="-19" id="EMJ-sJ-3Q5"/>
                                                 <constraint firstItem="uww-o8-bP1" firstAttribute="firstBaseline" secondItem="eGN-HO-PT2" secondAttribute="baseline" id="FDS-nh-yuc"/>
                                                 <constraint firstItem="0J4-Oq-QII" firstAttribute="bottom" secondItem="U7O-Cf-W37" secondAttribute="bottom" id="K2P-dW-Cms"/>
@@ -108,22 +106,22 @@
                                                 <constraint firstItem="jiK-MS-Bix" firstAttribute="centerX" secondItem="h8E-2J-ucp" secondAttribute="centerX" id="SnP-On-Ctx"/>
                                                 <constraint firstItem="eGN-HO-PT2" firstAttribute="top" secondItem="h8E-2J-ucp" secondAttribute="top" constant="25" id="YEh-Fw-VeG"/>
                                                 <constraint firstAttribute="bottom" secondItem="U7O-Cf-W37" secondAttribute="bottom" constant="18.5" id="YGE-IA-4Ph"/>
+                                                <constraint firstItem="lLl-E8-OBe" firstAttribute="top" secondItem="jiK-MS-Bix" secondAttribute="bottom" constant="28" id="aaH-kT-vjp"/>
                                                 <constraint firstItem="uww-o8-bP1" firstAttribute="leading" secondItem="eGN-HO-PT2" secondAttribute="trailing" constant="2" id="bCR-hZ-Ydh"/>
-                                                <constraint firstItem="sjz-ds-E6m" firstAttribute="top" secondItem="jiK-MS-Bix" secondAttribute="bottom" constant="44.5" id="bwF-J6-9U7"/>
-                                                <constraint firstItem="U7O-Cf-W37" firstAttribute="top" secondItem="sjz-ds-E6m" secondAttribute="bottom" constant="48" id="dij-KJ-uIY"/>
-                                                <constraint firstItem="sjz-ds-E6m" firstAttribute="centerX" secondItem="h8E-2J-ucp" secondAttribute="centerX" id="fg1-lA-Emf"/>
+                                                <constraint firstItem="lLl-E8-OBe" firstAttribute="centerX" secondItem="jiK-MS-Bix" secondAttribute="centerX" id="iOm-jU-Q3I"/>
                                                 <constraint firstItem="K83-7T-lWi" firstAttribute="leading" secondItem="h8E-2J-ucp" secondAttribute="leading" constant="15" id="jEI-VW-6EU"/>
                                                 <constraint firstItem="U7O-Cf-W37" firstAttribute="leading" secondItem="0J4-Oq-QII" secondAttribute="trailing" constant="8" id="jyC-xf-sWL"/>
                                                 <constraint firstItem="jiK-MS-Bix" firstAttribute="top" secondItem="K83-7T-lWi" secondAttribute="bottom" constant="19" id="t4i-az-3Q6"/>
                                                 <constraint firstItem="K83-7T-lWi" firstAttribute="top" secondItem="h8E-2J-ucp" secondAttribute="top" constant="17" id="uBL-F7-4an"/>
+                                                <constraint firstItem="lLl-E8-OBe" firstAttribute="leading" secondItem="h8E-2J-ucp" secondAttribute="leading" id="ubE-Ns-lAk"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="name" destination="eGN-HO-PT2" id="Ltp-9t-3ia"/>
                                             <outlet property="postComments" destination="U7O-Cf-W37" id="6yu-Xm-dvl"/>
-                                            <outlet property="postMedia" destination="sjz-ds-E6m" id="aMP-Hr-PfP"/>
                                             <outlet property="postTime" destination="uww-o8-bP1" id="TDN-aU-oEe"/>
                                             <outlet property="postTitle" destination="jiK-MS-Bix" id="dfr-ZF-bOP"/>
+                                            <outlet property="referenceImage" destination="lLl-E8-OBe" id="fks-Me-nsG"/>
                                             <segue destination="BzY-nt-1ph" kind="show" id="a8w-Dc-p9W"/>
                                         </connections>
                                     </tableViewCell>
@@ -183,6 +181,7 @@
     </scenes>
     <resources>
         <image name="Comments" width="30" height="30"/>
+        <image name="PlaceholderImage" width="160" height="160"/>
         <image name="RedditIcon" width="45" height="45"/>
     </resources>
 </document>

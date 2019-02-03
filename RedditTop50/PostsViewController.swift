@@ -102,13 +102,19 @@ extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         let post = postsArray[indexPath.row]
-        
-        if let url = URL(string: post.mediaURL) {
-            cell.postMedia.load(URLRequest(url: url))
+
+        let url = URL(string: post.mediaURL)
+
+        ImageService.getImage(withURL: url!) { image, URL in            
+            if post.mediaURL.hasSuffix(".jpg"){
+                cell.referenceImage.image = image
+            }
+            else {
+                cell.referenceImage.image = UIImage(named: "placeholderimage")
+            }
         }
-        
         let startDate = Date(timeIntervalSince1970: post.time)
-        
+//        cell.referenceImage = post.
         cell.postTime.text = startDate.postTimeCalculation()
         cell.name.text = (post.name + "   •   ")
         cell.postTitle.text = post.title
@@ -122,7 +128,8 @@ extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-//Hours Ago Calculation
+
+//MARK: Post Time Calculation
 extension Date {
     func postTimeCalculation() -> String {
         
