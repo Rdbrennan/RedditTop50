@@ -114,7 +114,6 @@ extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         let startDate = Date(timeIntervalSince1970: post.time)
-//        cell.referenceImage = post.
         cell.postTime.text = startDate.postTimeCalculation()
         cell.name.text = (post.name + "   •   ")
         cell.postTitle.text = post.title
