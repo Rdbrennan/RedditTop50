@@ -12,11 +12,7 @@ import WebKit
 
 class PostTableViewCell: UITableViewCell {
     //MARK: Variables
-    //title
-    //author
-    //image
-    //comments
-    //hoursAgo
+
     @IBOutlet var name: UILabel!
     @IBOutlet var postTime: UILabel!
     @IBOutlet var postTitle: UILabel!

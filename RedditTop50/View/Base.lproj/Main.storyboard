@@ -183,7 +183,7 @@
     </scenes>
     <resources>
         <image name="Comments" width="30" height="30"/>
-        <image name="PlaceholderImage" width="160" height="160"/>
+        <image name="PlaceholderImage" width="175" height="195"/>
         <image name="RedditIcon" width="45" height="45"/>
     </resources>
 </document>

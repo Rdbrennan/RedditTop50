@@ -8,19 +8,12 @@
 
 import UIKit
 
-struct Post {
-    let name: String
-    let time: Double
-    let title: String
-    let mediaURL: String
-    let comments: Int
-}
-
 class PostsViewController: UIViewController {
     
     //MARK: Variables
     
     var postsArray = [Post]()
+    var paginationLimit = 10
 
     @IBOutlet var postsTableView: UITableView!
     override func viewDidLoad() {
@@ -82,6 +75,7 @@ class PostsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? MediaViewController, let postIndex = postsTableView.indexPathForSelectedRow?.row {
             destination.post = postsArray[postIndex]
+            
         }
     }
 }
@@ -110,7 +104,7 @@ extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.referenceImage.image = image
             }
             else {
-                cell.referenceImage.image = UIImage(named: "placeholderimage")
+                cell.referenceImage.image = UIImage(named: "PlaceholderImage")
             }
         }
         let startDate = Date(timeIntervalSince1970: post.time)
@@ -124,34 +118,5 @@ extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-
-//MARK: Post Time Calculation
-extension Date {
-    func postTimeCalculation() -> String {
-        
-        let calendar = Calendar.current
-        let minuteAgo = calendar.date(byAdding: .minute, value: -1, to: Date())!
-        let hourAgo = calendar.date(byAdding: .hour, value: -1, to: Date())!
-        let dayAgo = calendar.date(byAdding: .day, value: -1, to: Date())!
-        let weekAgo = calendar.date(byAdding: .day, value: -7, to: Date())!
-        
-        if minuteAgo < self {
-            let diff = Calendar.current.dateComponents([.second], from: self, to: Date()).second ?? 0
-            return "\(diff) sec ago"
-        } else if hourAgo < self {
-            let diff = Calendar.current.dateComponents([.minute], from: self, to: Date()).minute ?? 0
-            return "\(diff) min ago"
-        } else if dayAgo < self {
-            let diff = Calendar.current.dateComponents([.hour], from: self, to: Date()).hour ?? 0
-            return "\(diff) hrs ago"
-        } else if weekAgo < self {
-            let diff = Calendar.current.dateComponents([.day], from: self, to: Date()).day ?? 0
-            return "\(diff) days ago"
-        }
-        let diff = Calendar.current.dateComponents([.weekOfYear], from: self, to: Date()).weekOfYear ?? 0
-        return "\(diff) weeks ago"
     }
 }
