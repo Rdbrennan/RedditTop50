@@ -20,15 +20,25 @@ class MediaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.clearAllNotice()
+
         if let post = post, let url = URL(string: post.mediaURL) {
             mediaWebView.load(URLRequest(url: url))
-            print(url)
             self.title = post.title
         }
         else{
             mediaWebView.load(URLRequest(url: defaultUrl!))
         }
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.pleaseWait()
+
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        self.clearAllNotice()
+
     }
     
     override func didReceiveMemoryWarning() {

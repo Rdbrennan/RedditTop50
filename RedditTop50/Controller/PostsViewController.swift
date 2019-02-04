@@ -24,7 +24,7 @@ class PostsViewController: UIViewController {
     
     func fetchRedditPosts(){
         guard let redditUrl = URL(string: "https://www.reddit.com/top/.json?limit=50") else { return }
-        
+        self.pleaseWait()
         let request = URLRequest(url: redditUrl, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 20)
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: {
@@ -51,6 +51,7 @@ class PostsViewController: UIViewController {
                                                 
                                         }
                                         self.postsArray.append(Post(name: name, time: time, title: title, mediaURL: mediaURL, comments: comments))
+                                        self.clearAllNotice()
                                     }
                                 }
                             }
@@ -75,7 +76,6 @@ class PostsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? MediaViewController, let postIndex = postsTableView.indexPathForSelectedRow?.row {
             destination.post = postsArray[postIndex]
-            
         }
     }
 }

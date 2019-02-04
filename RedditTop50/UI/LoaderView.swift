@@ -105,14 +105,14 @@ class SwiftNotice: NSObject {
     static func noticeOnStatusBar(_ text: String, autoClear: Bool, autoClearTime: Int) -> UIWindow{
         let frame = UIApplication.shared.statusBarFrame
         let window = UIWindow()
-        window.backgroundColor = UIColor.clear
+        window.backgroundColor = UIColor(red:67, green:170, blue:232, alpha: 1.0)
         let view = UIView()
         view.backgroundColor = UIColor(red: 0x6a/0x100, green: 0xb4/0x100, blue: 0x9f/0x100, alpha: 1)
         
         let label = UILabel(frame: frame.height > 20 ? CGRect(x: frame.origin.x, y: frame.origin.y + frame.height - 17, width: frame.width, height: 20) : frame)
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor.white
+        label.textColor = UIColor(red:67, green:170, blue:232, alpha: 1.0)
         label.text = text
         view.addSubview(label)
         
@@ -162,7 +162,7 @@ class SwiftNotice: NSObject {
         window.backgroundColor = UIColor.clear
         let mainView = UIView()
         mainView.layer.cornerRadius = 65
-        mainView.backgroundColor = UIColor(red:0, green:0, blue:0, alpha: 0.8)
+        mainView.backgroundColor = UIColor(red:67/255, green:170/255, blue:232/255, alpha: 1.0)
         
         if imageNames.count > 0 {
             if imageNames.count > timerTimes {
@@ -183,7 +183,7 @@ class SwiftNotice: NSObject {
             
             let iv = UIImageView(frame: frame)
             iv.frame = CGRect(x: 16, y: 16, width: 100, height: 90)
-            iv.image = UIImage(named: "RedditIcon")
+            iv.image = UIImage(named: "RedditIconWhite")
             iv.alpha = 1.0
             let animation = UIViewPropertyAnimator(duration: 1.3, curve: .easeInOut) {
                 UIView.setAnimationRepeatCount(.infinity)
@@ -224,14 +224,14 @@ class SwiftNotice: NSObject {
         window.backgroundColor = UIColor.clear
         let mainView = UIView()
         mainView.layer.cornerRadius = 12
-        mainView.backgroundColor = UIColor(red:0, green:0, blue:0, alpha: 0.8)
+        mainView.backgroundColor = UIColor(red:67, green:170, blue:232, alpha: 0.8)
         
         let label = UILabel()
         label.text = text
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 13)
         label.textAlignment = NSTextAlignment.center
-        label.textColor = UIColor.white
+        label.textColor = UIColor(red:67, green:170, blue:232, alpha: 0.8)
         let size = label.sizeThatFits(CGSize(width: UIScreen.main.bounds.width-82, height: CGFloat.greatestFiniteMagnitude))
         label.bounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         mainView.addSubview(label)
@@ -269,7 +269,7 @@ class SwiftNotice: NSObject {
         window.backgroundColor = UIColor.clear
         let mainView = UIView()
         mainView.layer.cornerRadius = 65
-        mainView.backgroundColor = UIColor(red:0, green:0, blue:0, alpha: 0.7)
+        mainView.backgroundColor = UIColor(red:67, green:170, blue:232, alpha: 0.8)
         
         var image = UIImage()
         switch type {
@@ -278,7 +278,7 @@ class SwiftNotice: NSObject {
         case .error:
             image = SwiftNoticeSDK.imageOfCross
         case .info:
-            image = UIImage(named: "RedditIcon")!
+            image = UIImage(named: "RedditIconWhite")!
         }
         let checkmarkView = UIImageView(image: image)
         checkmarkView.frame = CGRect(x: 20, y: 16, width: 90, height: 80)
@@ -293,7 +293,7 @@ class SwiftNotice: NSObject {
         
         let label = UILabel(frame: CGRect(x: 20, y: 95, width: 90, height: 16))
         label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = UIColor.white
+        label.textColor = UIColor(red:67, green:170, blue:232, alpha: 0.8)
         label.text = text
         label.textAlignment = NSTextAlignment.center
         mainView.addSubview(label)
@@ -371,7 +371,7 @@ class SwiftNoticeSDK {
             checkmarkShapePath.move(to: CGPoint(x: 18, y: 6))
             checkmarkShapePath.close()
             
-            UIColor.white.setStroke()
+            UIColor(red:67, green:170, blue:232, alpha: 1.0).setStroke()
             checkmarkShapePath.stroke()
             
             let checkmarkShapePath = UIBezierPath()
@@ -379,11 +379,11 @@ class SwiftNoticeSDK {
             checkmarkShapePath.addArc(withCenter: CGPoint(x: 18, y: 27), radius: 1, startAngle: 0, endAngle: CGFloat(Double.pi*2), clockwise: true)
             checkmarkShapePath.close()
             
-            UIColor.white.setFill()
+            UIColor(red:67, green:170, blue:232, alpha: 1.0).setFill()
             checkmarkShapePath.fill()
         }
         
-        UIColor.white.setStroke()
+       UIColor(red:67, green:170, blue:232, alpha: 1.0).setStroke()
         checkmarkShapePath.stroke()
     }
     class var imageOfCheckmark: UIImage {
