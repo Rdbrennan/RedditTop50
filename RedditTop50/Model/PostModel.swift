@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK: Post Model Data
 struct Post {
     let name: String
     let time: Double

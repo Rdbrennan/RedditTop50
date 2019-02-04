@@ -7,24 +7,35 @@
 //
 
 import UIKit
+import RevealingSplashView
 
 class PostsViewController: UIViewController {
     
     //MARK: Variables
     
     var postsArray = [Post]()
-    var paginationLimit = 10
 
     @IBOutlet var postsTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "AppIconOriginal")!,iconInitialSize: CGSize(width: 240, height: 209), backgroundColor: UIColor.white)
+        //Adds the revealing splash view as a sub view
+        self.view.addSubview(revealingSplashView)
         
+        //Starts animation
+        revealingSplashView.startAnimation(){
+            print("Completed")
+        }
+        
+        //Fetch Posts
         fetchRedditPosts()
     }
     
+    //MARK: Iterate Reddit JSON data to obtain children (aka the data)
     func fetchRedditPosts(){
         guard let redditUrl = URL(string: "https://www.reddit.com/top/.json?limit=50") else { return }
-        self.pleaseWait()
+//        self.pleaseWait()
         let request = URLRequest(url: redditUrl, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 20)
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: {
@@ -46,7 +57,7 @@ class PostsViewController: UIViewController {
                                               let title = postDict["title"] as? String,
                                               let mediaURL = postDict["url"] as? String,
                                               let comments = postDict["num_comments"] as? Int else {
-                                                print("uh oh")
+                                                print("JSON data error")
                                                 break
                                                 
                                         }
@@ -66,13 +77,13 @@ class PostsViewController: UIViewController {
                     print("JSON error")
                 }
             } else {
-                print("no error and no data")
+                print("No errors & no data")
             }
         })
         task.resume()
-
     }
     
+    //MARK: Populate Posts Array in Media View
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? MediaViewController, let postIndex = postsTableView.indexPathForSelectedRow?.row {
             destination.post = postsArray[postIndex]
@@ -80,6 +91,7 @@ class PostsViewController: UIViewController {
     }
 }
 
+//MARK: TableViewController Extentsion
 extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if postsArray.count > 0 {
@@ -89,6 +101,7 @@ extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    //MARK: Load Data utilizing Model and ViewModel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath as IndexPath) as? PostTableViewCell, postsArray.count > 0 else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath as IndexPath)

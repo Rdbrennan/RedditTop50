@@ -11,15 +11,13 @@ import UIKit
 import WebKit
 
 class PostTableViewCell: UITableViewCell {
-    //MARK: Variables
-
+    
+    //MARK: Post ViewModel Outlets
     @IBOutlet var name: UILabel!
     @IBOutlet var postTime: UILabel!
     @IBOutlet var postTitle: UILabel!
     @IBOutlet var postComments: UILabel!
     @IBOutlet var referenceImage: UIImageView!
-    
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

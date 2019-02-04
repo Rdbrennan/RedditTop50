@@ -1,0 +1,16 @@
+PODS:
+  - RevealingSplashView (0.6.0)
+
+DEPENDENCIES:
+  - RevealingSplashView
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - RevealingSplashView
+
+SPEC CHECKSUMS:
+  RevealingSplashView: 40c5a770894459736acdc95655eeba0dd30ce91c
+
+PODFILE CHECKSUM: f3f99e08e3d0ad73da182ecb39f16969b9cd1815
+
+COCOAPODS: 1.5.3

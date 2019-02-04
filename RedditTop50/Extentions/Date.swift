@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 //MARK: Post Time Calculation
 extension Date {
     func postTimeCalculation() -> String {
