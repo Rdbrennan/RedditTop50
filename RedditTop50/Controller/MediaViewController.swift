@@ -20,10 +20,26 @@ class MediaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mediaWebView.allowsBackForwardNavigationGestures = true
+
         //Fetch media from URL
-        if let post = post, let url = URL(string: post.mediaURL) {
-            mediaWebView.load(URLRequest(url: url))
-            self.title = post.title
+        if let post = post, var url = URL(string: post.mediaURL) {
+            if post.mediaURL != ""{
+                //Videos
+                if post.mediaURL.hasPrefix("https://v"){
+                    print(url)
+                    url = URL(string: post.mediafallbackURL)!
+                    print(url)
+                     mediaWebView.load(URLRequest(url: url))
+                }
+                //Image, Gif, Web
+                else{
+                    
+                    mediaWebView.load(URLRequest(url: url))
+                    print(url)
+                }
+                self.title = post.title
+            }
         }
         else{
             //No Media Default
@@ -43,3 +59,4 @@ class MediaViewController: UIViewController {
 
     }
 }
+

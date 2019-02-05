@@ -14,8 +14,11 @@ class PostsViewController: UIViewController {
     //MARK: Variables
     
     var postsArray = [Post]()
+    var uniqueArray = [Post]()
 
     @IBOutlet var postsTableView: UITableView!
+    
+    var mediafallbackURL: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,12 +64,31 @@ class PostsViewController: UIViewController {
                                                 break
                                                 
                                         }
-                                        self.postsArray.append(Post(name: name, time: time, title: title, mediaURL: mediaURL, comments: comments))
+                                        if let media = postDict["secure_media"] as? [String:Any] {
+                                            if let media1 = media["reddit_video"] as? [String:Any] {
+                                                    
+                                                    guard let mediafallbackURL = media1["fallback_url"] as? String else {
+                                                            print("JSON data error")
+                                                            break
+                                                            
+                                                    }
+                                                
+                                                    self.postsArray.append(Post(name: name, time: time, title: title, mediaURL: mediaURL, comments: comments, mediafallbackURL: mediafallbackURL))
+                                            }
+                                        }
+                                        self.postsArray.append(Post(name: name, time: time, title: title, mediaURL: mediaURL, comments: comments, mediafallbackURL: ""))
                                         self.clearAllNotice()
                                     }
                                 }
                             }
-                            print(self.postsArray.count)
+                            
+                            var seen = Set<String>()
+                            for message in self.postsArray {
+                                if !seen.contains(message.title) {
+                                    self.uniqueArray.append(message)
+                                    seen.insert(message.title)
+                                }
+                            }
                             DispatchQueue.main.async(execute: {
                                 self.postsTableView.reloadData()
                             })
@@ -86,7 +108,7 @@ class PostsViewController: UIViewController {
     //MARK: Populate Posts Array in Media View
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? MediaViewController, let postIndex = postsTableView.indexPathForSelectedRow?.row {
-            destination.post = postsArray[postIndex]
+            destination.post = uniqueArray[postIndex]
         }
     }
 }
@@ -94,8 +116,8 @@ class PostsViewController: UIViewController {
 //MARK: TableViewController Extentsion
 extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if postsArray.count > 0 {
-            return postsArray.count
+        if uniqueArray.count > 0 {
+            return uniqueArray.count
         } else {
             return 1
         }
@@ -103,12 +125,12 @@ extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
     
     //MARK: Load Data utilizing Model and ViewModel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath as IndexPath) as? PostTableViewCell, postsArray.count > 0 else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath as IndexPath) as? PostTableViewCell, uniqueArray.count > 0 else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath as IndexPath)
             return cell
         }
         
-        let post = postsArray[indexPath.row]
+        let post = uniqueArray[indexPath.row]
 
         let url = URL(string: post.mediaURL)
 
@@ -131,5 +153,18 @@ extension PostsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+
+extension Array where Element: Equatable {
+    mutating func removeDuplicates() {
+        var result = [Element]()
+        for value in self {
+            if !result.contains(value) {
+                result.append(value)
+            }
+        }
+        self = result
     }
 }

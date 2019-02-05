@@ -15,4 +15,5 @@ struct Post {
     let title: String
     let mediaURL: String
     let comments: Int
+    let mediafallbackURL: String
 }
