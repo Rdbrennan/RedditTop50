@@ -2,6 +2,8 @@ Welcome to
 # RedditTop50
 iOS App for Reddit's daily top 50 
 
+- Parsed JSON data from Reddit
+
 <p align="center">
  <img src="https://s1.mzstatic.com/us/r30/Purple6/v4/98/ca/a6/98caa67a-0d5c-2d00-c249-298315f4859e/mzl.cfrxvkko.png" width="300" height = "300"/>
 </p>
